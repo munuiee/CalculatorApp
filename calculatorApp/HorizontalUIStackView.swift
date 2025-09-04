@@ -1,14 +1,11 @@
-//
-//  HorizontalUIStackView.swift
-//  calculatorApp
-//
-//  Created by 변지혜 on 9/4/25.
-//
-
 import UIKit
 import SnapKit
 
 class HorizontalUIStackView: UIStackView {
+    
+    var mainButtons: [UIButton] = []
+    let nums = ["7", "8", "9", "+"]
+    //let horizontalStackView = UIStackView()
     
     init() {
         super.init(frame: .zero)
@@ -19,18 +16,44 @@ class HorizontalUIStackView: UIStackView {
     }
     
     // StackView 서브뷰 추가하기
-    func makeHorizontalStackView(_ views: [UIView]) -> UIStackView {
-        let horizontalStackView = UIStackView()
+    func makeHorizontalStackView(_ nums: [String]) -> UIStackView {
         
         // stackView 레이아웃
-        horizontalStackView.axis = .horizontal
-        horizontalStackView.backgroundColor = .black
-        horizontalStackView.spacing = 10
-        horizontalStackView.distribution = .fillEqually
+        self.axis = .horizontal
+        self.backgroundColor = .black
+        self.spacing = 10
+        self.distribution = .fillEqually
         
-        views.forEach { horizontalStackView.addArrangedSubview($0) }
+        for num in nums {
+            let button = UIButton()
+            button.setTitle("\(num)", for: .normal)
+            button.titleLabel?.font = .boldSystemFont(ofSize: 30)
+            button.backgroundColor = UIColor(red: 58/255, green: 58/255, blue: 58/255, alpha: 1.0)
+            button.layer.cornerRadius = 40
+            
+            button.snp.makeConstraints {
+                $0.width.equalTo(80)
+                $0.height.equalTo(80)
+            }
+            
+            button.addTarget(self, action: #selector(buttonClicked), for: .touchDown)
+            
+            
+            self.addArrangedSubview(button)
+            mainButtons.append(button)
+        }
         
-        return horizontalStackView
+                
+        return self
     }
+    
+    @objc private func buttonClicked() {
+        print("버튼 눌림 'ㅅ'")
+    }
+    
+   
+    
 
+
+    
 }
