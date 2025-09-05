@@ -2,6 +2,12 @@ import UIKit
 import SnapKit
 
 final class HorizontalUIStackView: UIStackView {
+    weak var delegate: HorizontalUIStackViewDelegate?
+    
+    @objc private func didTapButton(_ sender: UIButton) {
+        guard let title = sender.currentTitle else { return }
+        delegate?.keypadButtonTapped(title)
+    }
     
     private var mainButtons: [UIButton] = []
     private let nums =  [
@@ -61,6 +67,7 @@ final class HorizontalUIStackView: UIStackView {
                 mainButtons.append(button)
                 
                 button.addTarget(self, action: #selector(buttonClicked), for: .touchDown)
+                button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
 
             }
 
@@ -75,6 +82,8 @@ final class HorizontalUIStackView: UIStackView {
     private func buttonClicked() {
         print("버튼이 잘 작동됨! 'ㅅ')👍")
     }
+    
+    
     
     
 }
