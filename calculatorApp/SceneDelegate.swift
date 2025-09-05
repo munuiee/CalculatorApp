@@ -1,9 +1,3 @@
-//
-//  SceneDelegate.swift
-//  calculatorApp
-//
-//  Created by 변지혜 on 9/4/25.
-//
 
 import UIKit
 

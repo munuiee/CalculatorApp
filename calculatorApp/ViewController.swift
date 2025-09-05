@@ -56,12 +56,17 @@ final class ViewController: UIViewController {
 extension ViewController: HorizontalUIStackViewDelegate {
     func keypadButtonTapped(_ title: String) {
         
+        // 0을 입력하는 경우
         switch title {
         case "0"..."9":
             if labelInput == "0" { labelInput = title }
             else { labelInput += title }
             label.text = labelInput
- 
+            
+        // AC 버튼 클릭시 0으로 만듦
+        case "AC":
+            labelInput = "0"
+            label.text = labelInput
         default:
             print("")
         }

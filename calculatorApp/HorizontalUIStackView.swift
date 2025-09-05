@@ -2,6 +2,8 @@ import UIKit
 import SnapKit
 
 final class HorizontalUIStackView: UIStackView {
+    
+    // delegate 연결
     weak var delegate: HorizontalUIStackViewDelegate?
     
     @objc private func didTapButton(_ sender: UIButton) {
