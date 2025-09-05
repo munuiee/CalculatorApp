@@ -1,27 +1,25 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     let label = UILabel()
-    let mainStackView = HorizontalUIStackView()
-
+    private let stackView = HorizontalUIStackView()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
        
-        let stack = mainStackView.makeHorizontalStackView(["7", "8", "9", "+"])
-        view.addSubview(stack)
-    
+        view.addSubview(stackView)
         
-        
-        // stackView 오토레이아웃
-        mainStackView.snp.makeConstraints {
-            $0.height.equalTo(80)
-            $0.bottom.equalTo(label.snp.bottom).offset(40)
-            $0.center.equalToSuperview()
+        // VerticalStackView 오토레이아웃
+        stackView.snp.makeConstraints {
+            $0.width.equalTo(350)
+            $0.top.equalTo(label.snp.bottom).offset(60)
+            $0.centerX.equalToSuperview()
         }
+
+        
     }
     
     func configure() {
