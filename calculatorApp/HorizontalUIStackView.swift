@@ -48,4 +48,6 @@ class HorizontalUIStackView: UIStackView {
         print("버튼 눌림 'ㅅ'")
     }
 
+
+    
 }

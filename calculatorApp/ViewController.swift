@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         view.addSubview(stack)
     
         
+        
         // stackView 오토레이아웃
         mainStackView.snp.makeConstraints {
             $0.height.equalTo(80)
