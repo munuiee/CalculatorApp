@@ -46,6 +46,17 @@ final class HorizontalUIStackView: UIStackView {
                     $0.height.equalTo(80)
                 }
                 
+                // 연산자 버튼 색상
+                 let operators = ["+", "-", "*", "/", "=", "AC"]
+                              
+                 if operators.contains(title) {
+                    button.backgroundColor = .orange
+                    button.setTitleColor(.white, for: .normal)
+                 } else {
+                     button.backgroundColor = UIColor(red: 58/255, green: 58/255, blue: 58/255, alpha: 1.0)
+                     button.setTitleColor(.white, for: .normal)
+                 }
+                
                 hStackView.addArrangedSubview(button)
                 mainButtons.append(button)
                 
