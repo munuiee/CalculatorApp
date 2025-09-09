@@ -29,25 +29,32 @@ final class HorizontalUIStackView: UIStackView {
     }
     
     func makeVertaicalStackView() {
+        
+        // VerticalStackView 레이아웃
         self.axis = .vertical
         self.backgroundColor = .black
         self.spacing = 10
         self.distribution = .fillEqually
         
-
+        // HorizontalStackView 반복
         for row in nums {
             let hStackView = UIStackView()
-            // HotizontalStackView 레이아웃
+            
+            // HorizontalStackView 레이아웃
             hStackView.axis = .horizontal
             hStackView.backgroundColor = .black
             hStackView.spacing = 10
             hStackView.distribution = .fillEqually
             
+            
+            // 배열 안 문자열 반복
             for title in row {
                 let button = UIButton()
                 button.setTitle(title, for: .normal)
                 button.titleLabel?.font = .boldSystemFont(ofSize: 30)
                 button.backgroundColor = UIColor(red: 58/255, green: 58/255, blue: 58/255, alpha: 1.0)
+                
+                // 버튼 원형
                 button.layer.cornerRadius = 40
                 button.snp.makeConstraints {
                     $0.width.equalTo(80)
@@ -67,25 +74,16 @@ final class HorizontalUIStackView: UIStackView {
                 
                 hStackView.addArrangedSubview(button)
                 mainButtons.append(button)
-                
-                button.addTarget(self, action: #selector(buttonClicked), for: .touchDown)
+
                 button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
 
             }
-
             self.addArrangedSubview(hStackView)
+            
+            // HorizontalStackView 오토레이아웃
             hStackView.snp.makeConstraints { $0.height.equalTo(80) }
             
         }
  
     }
-    
-    @objc
-    private func buttonClicked() {
-        print("버튼이 잘 작동됨! 'ㅅ')👍")
-    }
-    
-    
-    
-    
 }
