@@ -2,14 +2,14 @@ import UIKit
 import SnapKit
 
 /*
-  예외처리를 생각해보아요...
-  1. =을 입력하는 경우 바로 결과물 도출
-  2. 연산자를 연달아 입력하는 경우
-  3. 0으로 나누는 경우?
+  예외처리를 생각해보자
+  1. 0으로 나누는 경우?
+  2. 첫 입력이 음수인 경우
 */
 
 final class ViewController: UIViewController {
     let label = UILabel()
+    let labelScroll = UIScrollView()
     private let stackView = HorizontalUIStackView()
     // 계산 문자열 저장 변수
     private var labelInput: String = "0"
@@ -35,7 +35,9 @@ final class ViewController: UIViewController {
     
     func configure() {
         
+        view.addSubview(labelScroll)
         view.addSubview(label)
+        
         // view 레이아웃
         view.backgroundColor = .black
         
@@ -58,13 +60,19 @@ final class ViewController: UIViewController {
 // UIStackView delegate
 extension ViewController: HorizontalUIStackViewDelegate {
     func keypadButtonTapped(_ title: String) {
-        // 0을 입력하는 경우
+        
         switch title {
-            
+        // 0을 입력하는 경우
         case "0"..."9":
             if labelInput == "0" { labelInput = title }
             else { labelInput += title }
             label.text = labelInput
+            
+            // 예외처리: 음수를 먼저 입력하는 경우 0 제거
+            if labelInput.hasPrefix("0-") {
+                labelInput.remove(at: labelInput.startIndex)
+                label.text = labelInput
+            }
             
         // AC 버튼 클릭시 0으로 만듦
         case "AC":
@@ -75,19 +83,29 @@ extension ViewController: HorizontalUIStackViewDelegate {
         case "=":
             // 함수가 옵셔널로 반환되므로 옵셔널 바인딩
             if let result = calculate(expression: labelInput) {
+                
+                // 예외처리: 0으로 나누는 경우 0 출력
+                if labelInput.contains("/0") {
+                    labelInput = "0"
+                    label.text = labelInput
+                }
                 labelInput = String(result) // 화면에 나타내기 위해 result를 문자열로 변환
                 label.text = labelInput
             } else {
                 labelInput = "0"
                 label.text = labelInput // 계산 실패시 0으로 되돌림
             }
-     
+            
+            
+            
+       
         default:
             // 연산자 중복 입력 방지
             let operators: Set<Character> = ["+", "-", "*", "/"]
             if let last = labelInput.last, operators.contains(last) {
                 return // 중복된 연산자가 마지막에 오면 바로 함수 종료
             }
+            
             labelInput.append(title)
             label.text = labelInput
         }
