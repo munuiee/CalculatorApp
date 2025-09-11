@@ -30,7 +30,7 @@ final class HorizontalUIStackView: UIStackView {
     
     func makeVertaicalStackView() {
         
-        // VerticalStackView 레이아웃
+        // VerticalStackView 레이아웃 (오토레아는 뷰컨트롤러에)
         self.axis = .vertical
         self.backgroundColor = .black
         self.spacing = 10
@@ -54,17 +54,25 @@ final class HorizontalUIStackView: UIStackView {
                 button.titleLabel?.font = .boldSystemFont(ofSize: 30)
                 button.backgroundColor = UIColor(red: 58/255, green: 58/255, blue: 58/255, alpha: 1.0)
                 
-                // 버튼 원형
                 button.layer.cornerRadius = 40
                 button.snp.makeConstraints {
                     $0.width.equalTo(80)
                     $0.height.equalTo(80)
                 }
                 
-                // 연산자 버튼 색상
-                 let operators = ["+", "-", "*", "/", "=", "AC"]
-                              
-                 if operators.contains(title) {
+                // 연산자 버튼 색상 - enum 활용
+                // let operators = ["+", "-", "*", "/", "=", "AC"]
+                
+                enum Operators: String {
+                    case plus = "+"
+                    case minus = "-"
+                    case multiply = "*"
+                    case divide = "/"
+                    case equal = "="
+                    case delete = "AC"
+                }
+                
+                if Operators(rawValue: title) != nil {
                     button.backgroundColor = .orange
                     button.setTitleColor(.white, for: .normal)
                  } else {

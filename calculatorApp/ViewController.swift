@@ -11,7 +11,7 @@ final class ViewController: UIViewController {
     let label = UILabel()
     let labelScroll = UIScrollView()
     private let stackView = HorizontalUIStackView()
-    // 계산 문자열 저장 변수
+    // 수식 변수
     private var labelInput: String = "0"
         
     
@@ -30,7 +30,6 @@ final class ViewController: UIViewController {
             $0.centerX.equalToSuperview()
         }
     }
-    
     
     
     func configure() {
@@ -96,14 +95,11 @@ extension ViewController: HorizontalUIStackViewDelegate {
                 label.text = labelInput // 계산 실패시 0으로 되돌림
             }
             
-            
-            
-       
         default:
             // 연산자 중복 입력 방지
             let operators: Set<Character> = ["+", "-", "*", "/"]
             if let last = labelInput.last, operators.contains(last) {
-                return // 중복된 연산자가 마지막에 오면 바로 함수 종료
+                return
             }
             
             labelInput.append(title)
@@ -114,7 +110,7 @@ extension ViewController: HorizontalUIStackViewDelegate {
     
     // NSExpression을 이용해서 문자열을 계산하는 함수
     func calculate(expression: String) -> Int? {
-        let expression = NSExpression(format: labelInput) // format에 문자열이 들어가야함
+        let expression = NSExpression(format: labelInput)
         if let result = expression.expressionValue(with: nil, context: nil) as? Int {
             return result
         } else {
