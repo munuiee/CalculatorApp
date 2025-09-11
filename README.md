@@ -19,7 +19,7 @@ Xcode Storyboard CodeBase Only
 <br>
 
 ### 프로젝트 기간
-2025.09.04 - 
+2025.09.04 - 2025.09.11
 
 <br>
 
@@ -29,7 +29,7 @@ Xcode Storyboard CodeBase Only
 [CalculatorApp Project](https://github.com/users/munuiee/projects/3)
 
 #### 👇 TIL
-작성 중
+[계산기 앱 만들기 TIL](https://hachkoi.tistory.com/5)
 
 <br>
 
