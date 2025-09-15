@@ -21,23 +21,29 @@ final class HorizontalUIStackView: UIStackView {
     
     init() {
         super.init(frame: .zero)
-        makeVertaicalStackView()
+        
+        let verticalStack = makeVertaicalStackView([])
+        addSubview(verticalStack)
+        // 내부 스택을 self에 붙여주기
+        verticalStack.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func makeVertaicalStackView() {
+    func makeVertaicalStackView(_ views: [UIView]) -> UIStackView {
+        let stackView = UIStackView()
         
-        // VerticalStackView 레이아웃 (오토레아는 뷰컨트롤러에)
-        self.axis = .vertical
-        self.backgroundColor = .black
-        self.spacing = 10
-        self.distribution = .fillEqually
+        // VerticalStackView 레이아웃
+        stackView.axis = .vertical
+        stackView.backgroundColor = .black
+        stackView.spacing = 10
+        stackView.distribution = .fillEqually
         
         // HorizontalStackView 반복
         for row in nums {
+
             let hStackView = UIStackView()
             
             // HorizontalStackView 레이아웃
@@ -86,12 +92,13 @@ final class HorizontalUIStackView: UIStackView {
                 button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
 
             }
-            self.addArrangedSubview(hStackView)
+            stackView.addArrangedSubview(hStackView)
             
             // HorizontalStackView 오토레이아웃
             hStackView.snp.makeConstraints { $0.height.equalTo(80) }
             
         }
+        return stackView
  
     }
 }

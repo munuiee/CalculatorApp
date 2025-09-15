@@ -1,12 +1,6 @@
 import UIKit
 import SnapKit
 
-/*
-  예외처리를 생각해보자
-  1. 0으로 나누는 경우?
-  2. 첫 입력이 음수인 경우
-*/
-
 final class ViewController: UIViewController {
     let label = UILabel()
     let labelScroll = UIScrollView()
@@ -56,7 +50,6 @@ final class ViewController: UIViewController {
     }
 }
 
-// UIStackView delegate
 extension ViewController: HorizontalUIStackViewDelegate {
     func keypadButtonTapped(_ title: String) {
         
@@ -78,9 +71,8 @@ extension ViewController: HorizontalUIStackViewDelegate {
             labelInput = "0"
             label.text = labelInput
             
-        // 계산
+        // 연산
         case "=":
-            // 함수가 옵셔널로 반환되므로 옵셔널 바인딩
             if let result = calculate(expression: labelInput) {
                 
                 // 예외처리: 0으로 나누는 경우 0 출력
@@ -88,7 +80,7 @@ extension ViewController: HorizontalUIStackViewDelegate {
                     labelInput = "0"
                     label.text = labelInput
                 }
-                labelInput = String(result) // 화면에 나타내기 위해 result를 문자열로 변환
+                labelInput = String(result)
                 label.text = labelInput
             } else {
                 labelInput = "0"
@@ -108,7 +100,6 @@ extension ViewController: HorizontalUIStackViewDelegate {
     }
 
     
-    // NSExpression을 이용해서 문자열을 계산하는 함수
     func calculate(expression: String) -> Int? {
         let expression = NSExpression(format: labelInput)
         if let result = expression.expressionValue(with: nil, context: nil) as? Int {
